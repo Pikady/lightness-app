@@ -8,6 +8,18 @@ import { Button, Input, Card } from '@/components/atoms';
 import { useExperienceStore } from '@/store/experienceStore';
 import { useRouter } from 'next/navigation';
 
+// Persona ID 到中文名称的映射
+const personaNameMap: Record<string, string> = {
+  collector: '收集者',
+  competitor: '竞争者',
+  explorer: '探索者',
+  creator: '创造者',
+  storyteller: '故事讲述者',
+  comedian: '搞笑者',
+  leader: '领导者',
+  mover: '运动者'
+};
+
 const PlaygroundContainer = styled.div`
   min-height: 100vh;
   display: flex;
@@ -311,7 +323,7 @@ const Playground: React.FC = () => {
                       <TaskTitle>{task.title}</TaskTitle>
                       {task.design && (
                         <div style={{ marginBottom: '8px', fontSize: '0.875rem', color: '#F9B572' }}>
-                          {task.design.persona} · {task.design.imagination}
+                          {personaNameMap[task.design.persona] || task.design.persona} · {task.design.imagination}
                         </div>
                       )}
                       <TaskMeta>
