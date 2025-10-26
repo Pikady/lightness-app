@@ -568,7 +568,7 @@ export default function PlayPage() {
             <RoleName>{personaNameMap[experience.design.persona] || experience.design.persona}</RoleName>
             
             {experience.design.funIdea && (
-              <RoleQuote>"{experience.design.funIdea}"</RoleQuote>
+              <RoleQuote>" {experience.design.funIdea}"</RoleQuote>
             )}
             
             {experience.design.sideQuests && experience.design.sideQuests.length > 0 && (
