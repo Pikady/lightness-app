@@ -31,40 +31,43 @@ const PlayContainer = styled.div<{ $isSincere: boolean }>`
   };
   transition: background 800ms ease-in-out;
   position: relative;
-  overflow-x: hidden;
-  padding: 2rem 1rem;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+  padding: 2rem 1rem 4rem 1rem;
   
-  /* 背景微动效 - 呼吸感 */
+  /* 背景微动效 - 呼吸感 - 优化性能 */
   &::before {
     content: '';
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
     background: ${({ $isSincere }) => 
       $isSincere 
-        ? 'radial-gradient(circle at 50% 50%, rgba(180, 217, 208, 0.3) 0%, transparent 70%)'
-        : 'radial-gradient(circle at 50% 50%, rgba(253, 251, 246, 0.3) 0%, transparent 70%)'
+        ? 'radial-gradient(circle at 50% 50%, rgba(180, 217, 208, 0.2) 0%, transparent 70%)'
+        : 'radial-gradient(circle at 50% 50%, rgba(253, 251, 246, 0.2) 0%, transparent 70%)'
     };
-    animation: backgroundBreathe 12s ease-in-out infinite;
+    animation: backgroundBreathe 16s ease-in-out infinite;
     pointer-events: none;
     z-index: 0;
+    will-change: transform, opacity;
   }
   
-  /* 在真诚模式下增强呼吸效果 */
+  /* 在真诚模式下增强呼吸效果 - 优化性能 */
   ${({ $isSincere }) => $isSincere && `
     &::after {
       content: '';
-      position: absolute;
+      position: fixed;
       top: 0;
       left: 0;
       right: 0;
       bottom: 0;
-      background: radial-gradient(circle at 30% 70%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
-      animation: backgroundBreathe 15s ease-in-out infinite reverse;
+      background: radial-gradient(circle at 30% 70%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+      animation: backgroundBreathe 20s ease-in-out infinite reverse;
       pointer-events: none;
       z-index: 0;
+      will-change: transform, opacity;
     }
   `}
   
