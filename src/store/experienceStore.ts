@@ -32,7 +32,7 @@ export const useExperienceStore = create<ExperienceStore>((set, get) => ({
       status: 'undesigned',
       createdAt: new Date(),
     });
-    get().refreshTasks();
+    // 移除手动调用 refreshTasks，让 DataSubscriber 自动处理
   },
   
   refreshTasks: async () => {
