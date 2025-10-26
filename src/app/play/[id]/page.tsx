@@ -9,6 +9,18 @@ import { db } from '@/lib/db';
 import { Button } from '@/components/atoms';
 import { ArrowLeft } from 'lucide-react';
 
+// Persona ID 到中文名称的映射
+const personaNameMap: Record<string, string> = {
+  collector: '收集者',
+  competitor: '竞争者',
+  explorer: '探索者',
+  creator: '创造者',
+  storyteller: '故事讲述者',
+  comedian: '搞笑者',
+  leader: '领导者',
+  mover: '运动者'
+};
+
 // V2.0 主容器 - 移除顶栏割裂感
 const PlayContainer = styled.div<{ $isSincere: boolean }>`
   min-height: 100vh;
@@ -553,7 +565,7 @@ export default function PlayPage() {
         {experience.design && (
           <GameRoleSection>
             <RoleLabel>今天的游戏角色</RoleLabel>
-            <RoleName>{experience.design.persona}</RoleName>
+            <RoleName>{personaNameMap[experience.design.persona] || experience.design.persona}</RoleName>
             
             {experience.design.funIdea && (
               <RoleQuote>"{experience.design.funIdea}"</RoleQuote>
