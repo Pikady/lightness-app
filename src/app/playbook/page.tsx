@@ -346,6 +346,15 @@ const emotionMap: Record<string, string> = {
   mixed: '🙃'
 };
 
+// 角色ID到中文名称的映射
+const personaNameMap: Record<string, string> = {
+  collector: '收集者',
+  explorer: '探索者',
+  competitor: '竞争者',
+  creator: '创造者',
+  socializer: '社交者'
+};
+
 const Playbook: React.FC = () => {
   const router = useRouter();
   const { loggedExperiences, refreshLoggedExperiences } = useExperienceStore();
@@ -446,7 +455,7 @@ const Playbook: React.FC = () => {
       
       <ExperiencePersona>
         <User size={12} />
-        {experience.persona}
+        {personaNameMap[experience.persona] || experience.persona}
       </ExperiencePersona>
       
       {experience.reflection && (
