@@ -334,6 +334,18 @@ interface Experience {
   isFavorite?: boolean;
 }
 
+// 情绪值到表情符号的映射
+const emotionMap: Record<string, string> = {
+  happy: '😊',
+  calm: '😌',
+  thoughtful: '🤔',
+  amused: '😅',
+  bored: '😴',
+  anxious: '😰',
+  frustrated: '😤',
+  mixed: '🙃'
+};
+
 const Playbook: React.FC = () => {
   const router = useRouter();
   const { loggedExperiences, refreshLoggedExperiences } = useExperienceStore();
@@ -418,7 +430,9 @@ const Playbook: React.FC = () => {
       transition={{ duration: 0.2 }}
     >
       <ExperienceHeader>
-        <ExperienceTitle>{experience.title}</ExperienceTitle>
+        <ExperienceTitle>
+          {experience.title} {emotionMap[experience.emotion] || ''}
+        </ExperienceTitle>
         <FavoriteButton
           $isFavorite={experience.isFavorite || false}
           onClick={(e) => {
@@ -434,8 +448,6 @@ const Playbook: React.FC = () => {
         <User size={12} />
         {experience.persona}
       </ExperiencePersona>
-      
-      <ExperienceEmotion>{experience.emotion}</ExperienceEmotion>
       
       {experience.reflection && (
         <ExperienceReflection>
