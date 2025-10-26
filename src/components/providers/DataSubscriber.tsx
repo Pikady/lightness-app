@@ -10,16 +10,19 @@ export default function DataSubscriber() {
 
   const undesigned = useLiveQuery(
     () => db.experiences.where('status').equals('undesigned').sortBy('createdAt'),
+    [],
     []
   );
 
   const designed = useLiveQuery(
     () => db.experiences.where('status').equals('designed').sortBy('createdAt'),
+    [],
     []
   );
 
   const logged = useLiveQuery(
     () => db.experiences.where('status').equals('logged').reverse().sortBy('createdAt'),
+    [],
     []
   );
 

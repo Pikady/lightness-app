@@ -211,13 +211,12 @@ export default function PlayPage() {
               <SwitchKnob
                 animate={{
                   x: isSincere ? 60 : 0,
-                  scale: isSincere ? [1, 1.1, 1] : 1
+                  scale: isSincere ? 1.1 : 1
                 }}
                 transition={{
-                  type: "spring",
-                  stiffness: 500,
-                  damping: 30,
-                  duration: 0.4
+                  type: "tween",
+                  duration: 0.4,
+                  ease: "easeInOut"
                 }}
               >
                 {isSincere ? '真诚' : '认真'}

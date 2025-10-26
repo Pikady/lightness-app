@@ -144,13 +144,12 @@ export function SincereSwitch({
           $size={size}
           animate={{
             x: isOn ? getKnobDistance() : 0,
-            scale: isOn ? [1, 1.15, 1] : 1
+            scale: isOn ? 1.15 : 1
           }}
           transition={{
-            type: "spring",
-            stiffness: 500,
-            damping: 30,
-            duration: 0.4
+            type: "tween",
+            duration: 0.4,
+            ease: "easeInOut"
           }}
         >
           {isOn ? '真诚' : '认真'}

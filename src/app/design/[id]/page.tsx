@@ -164,8 +164,11 @@ export default function WizardPage() {
   const handleComplete = async () => {
     if (experience && wizardData.persona) {
       try {
+        // 确保使用正确的数字ID进行数据库更新
+        const experienceId = Number(experience.id);
+        
         // 更新数据库
-        await db.experiences.update(experience.id, {
+        await db.experiences.update(experienceId, {
           status: 'designed',
           design: {
             imagination: wizardData.experience,
@@ -176,14 +179,13 @@ export default function WizardPage() {
           }
         });
         
-        // 刷新store中的数据
-        const { useExperienceStore } = await import('@/store/experienceStore');
-        await useExperienceStore.getState().refreshTasks();
+        // 移除手动刷新，依赖DataSubscriber的自动同步
+        // DataSubscriber会自动检测数据库变化并更新store
         
-        // 使用 setTimeout 确保数据更新完成后再导航
+        // 增加延迟确保数据同步完成后再导航
         setTimeout(() => {
           router.push(`/play/${experience.id}`);
-        }, 100);
+        }, 500);
       } catch (error) {
         console.error('Failed to complete design:', error);
       }
