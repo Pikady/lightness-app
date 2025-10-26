@@ -95,10 +95,28 @@ const SearchIcon = styled(Search)`
   color: ${({ theme }) => theme.colors.text}60;
   width: 20px;
   height: 20px;
+  z-index: 1;
 `;
 
-const SearchInput = styled(Input)`
-  padding-left: 48px;
+const SearchInput = styled.input`
+  width: 100%;
+  padding: ${({ theme }) => theme.spacing.md} 0 ${({ theme }) => theme.spacing.md} 56px;
+  font-family: ${({ theme }) => theme.fonts.body};
+  font-size: 1rem;
+  color: ${({ theme }) => theme.colors.text};
+  background: transparent;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.neutral};
+  caret-color: ${({ theme }) => theme.colors.text};
+  
+  &::placeholder {
+    color: ${({ theme }) => theme.colors.text}60;
+  }
+  
+  &:focus {
+    border-bottom-color: ${({ theme }) => theme.colors.primary};
+  }
 `;
 
 const FilterButton = styled(Button)<{ $active: boolean }>`
@@ -455,7 +473,7 @@ const Playbook: React.FC = () => {
             <SearchInput
               placeholder="搜索体验、人格或反思..."
               value={searchTerm}
-              onChange={setSearchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
             />
           </SearchContainer>
           
