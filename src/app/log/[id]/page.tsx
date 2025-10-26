@@ -9,6 +9,18 @@ import { db } from '@/lib/db';
 import { Button } from '@/components/atoms';
 import { ArrowLeft, BookOpen } from 'lucide-react';
 
+// Persona ID 到中文名称的映射
+const personaNameMap: Record<string, string> = {
+  collector: '收集者',
+  competitor: '竞争者',
+  explorer: '探索者',
+  creator: '创造者',
+  storyteller: '故事讲述者',
+  comedian: '搞笑者',
+  leader: '领导者',
+  mover: '运动者'
+};
+
 const LogContainer = styled(motion.div)`
   min-height: 100vh;
   background: ${({ theme }) => theme.colors.background};
@@ -48,17 +60,6 @@ const DiaryContainer = styled(motion.div)`
   padding: 3rem;
   margin-top: 4rem;
   position: relative;
-  
-  &::before {
-    content: '';
-    position: absolute;
-    left: 3rem;
-    top: 0;
-    bottom: 0;
-    width: 2px;
-    background: ${({ theme }) => theme.colors.primary};
-    opacity: 0.3;
-  }
 `;
 
 const DiaryTitle = styled.h1`
@@ -291,7 +292,7 @@ export default function LogPage() {
         <TaskReference>
           <TaskTitle>{experience.title}</TaskTitle>
           <TaskMeta>
-            游玩角色：{experience.design?.persona || '未设定'} • 
+            游玩角色：{experience.design?.persona ? (personaNameMap[experience.design.persona] || experience.design.persona) : '未设定'} • 
             完成时间：{new Date().toLocaleDateString()}
           </TaskMeta>
         </TaskReference>

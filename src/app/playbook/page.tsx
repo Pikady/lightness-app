@@ -327,6 +327,7 @@ interface Experience {
   title: string;
   persona: string;
   emotion: string;
+  emotionPolarity?: 'positive' | 'negative' | 'neutral';
   emotionKeywords: string[];
   reflection: string;
   createdAt: Date;
@@ -353,6 +354,7 @@ const Playbook: React.FC = () => {
       title: exp.title,
       persona: exp.design?.persona || '未设定',
       emotion: exp.log?.emotion || '未记录',
+      emotionPolarity: exp.log?.emotionPolarity,
       emotionKeywords: [],
       reflection: exp.log?.reflection || '',
       createdAt: exp.createdAt,
@@ -373,9 +375,9 @@ const Playbook: React.FC = () => {
     
     switch (filterType) {
       case 'positive':
-        return ['😊', '🎉', '✨', '💪'].includes(exp.emotion);
+        return exp.emotionPolarity === 'positive';
       case 'negative':
-        return ['😔', '😤', '😰', '🤔'].includes(exp.emotion);
+        return exp.emotionPolarity === 'negative';
       case 'favorites':
         return exp.isFavorite;
       default:
@@ -384,11 +386,11 @@ const Playbook: React.FC = () => {
   });
 
   const positiveExperiences = filteredExperiences.filter(exp => 
-    ['😊', '🎉', '✨', '💪'].includes(exp.emotion)
+    exp.emotionPolarity === 'positive'
   );
   
   const negativeExperiences = filteredExperiences.filter(exp => 
-    ['😔', '😤', '😰', '🤔'].includes(exp.emotion)
+    exp.emotionPolarity === 'negative' || exp.emotionPolarity === 'neutral'
   );
 
   const toggleFavorite = (id: string) => {
